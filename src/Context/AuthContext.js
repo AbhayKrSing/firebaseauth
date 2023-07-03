@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useContext, createContext } from 'react'
-import { auth, createAUser } from '../firebase'
+import { auth, createAUser, OnAuthStateChange } from '../firebase'
 const authContext = createContext()
 export const AuthContext = ({ children }) => {
     const [currentUser, setcurrentUser] = useState('')
@@ -10,7 +10,9 @@ export const AuthContext = ({ children }) => {
     const value = {
         currentUser,
         signup,
-        setcurrentUser
+        setcurrentUser,
+        OnAuthStateChange,
+        auth
     }
     return (
         <div>
@@ -19,6 +21,6 @@ export const AuthContext = ({ children }) => {
     )
 }
 export const UseAuthContextAPI = () => {
-    useContext(authContext)
+    return useContext(authContext)
 }
 
