@@ -3,22 +3,16 @@ import { FormControl, FormLabel, Input, Container, Heading, Box, Button } from '
 import { UseAuthContextAPI } from '../Context/AuthContext'
 import { Link } from 'react-router-dom'
 
-const SignUp = ({ children }) => {
-    const { signup, OnAuthStateChange, auth, setcurrentUser, applyToast } = UseAuthContextAPI()
+const Login = ({ children }) => {
+    const { login, OnAuthStateChange, auth, setcurrentUser } = UseAuthContextAPI()
     const [loading, setloading] = useState(false)
     const emailref = useRef()
     const passwordref = useRef()
-    const cpasswordref = useRef()
     const handlesubmit = async (e) => {
         try {
             e.preventDefault()
             setloading(true)
-            if (passwordref.current.value !== cpasswordref.current.value) {
-                applyToast('Failed', 'password not match', 'error')
-                setloading(false)
-                return
-            }
-            const user = await signup(emailref.current.value, passwordref.current.value)
+            const user = await login(emailref.current.value, passwordref.current.value)
             setloading(false)
             console.log(user)
         } catch (error) {
@@ -45,7 +39,7 @@ const SignUp = ({ children }) => {
     return (
         <>  {children}
             <Container borderRadius={'7px'} bg='gray.100' border={'1px groove black'} p={8}>
-                <Heading textAlign={'center'} m={4}>SignUp</Heading>
+                <Heading textAlign={'center'} m={4}>Login</Heading>
                 <form onSubmit={handlesubmit}>
                     <FormControl>
                         <Box m={5}>
@@ -56,19 +50,15 @@ const SignUp = ({ children }) => {
                             <FormLabel>Password</FormLabel>
                             <Input type='password' id='password' borderColor={'gray.400'} minLength={5} name='password' ref={passwordref} bgColor={'white'} />
                         </Box>
-                        <Box m={5}>
-                            <FormLabel>Confirm-Password</FormLabel>
-                            <Input type='password' id='cpassword' borderColor={'gray.400'} minLength={5} name='cpassword' ref={cpasswordref} bgColor={'white'} />
-                        </Box>
                         <Box textAlign={'center'} m={8}>
-                            <Button type='submit' colorScheme='green' isLoading={loading}>SignUp</Button>
+                            <Button type='submit' colorScheme='green' isLoading={loading}>Login</Button>
                         </Box>
                     </FormControl>
                 </form>
             </Container>
-            <Box textAlign={'center'}>Already have a account ?? <Link style={{ color: 'red' }} to={'/login'}>Sign in</Link></Box>
+            <Box textAlign={'center'}>Create an account ?? <Link style={{ color: 'red' }} to={'/signup'}>Sign up</Link></Box>
         </>
     )
 }
 
-export default SignUp
+export default Login
