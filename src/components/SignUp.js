@@ -1,27 +1,43 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FormControl, FormLabel, Input, Container, Heading, Box, Button, Link } from '@chakra-ui/react'
 import { UseAuthContextAPI } from '../Context/AuthContext'
 
 const SignUp = ({ children }) => {
-    const { signup, OnAuthStateChange, auth, setcurrentUser } = UseAuthContextAPI()
+    const { signup, OnAuthStateChange, auth, setcurrentUser, applyToast } = UseAuthContextAPI()
+    const [loading, setloading] = useState(false)
     const emailref = useRef()
     const passwordref = useRef()
     const cpasswordref = useRef()
     const handlesubmit = async (e) => {
-        e.preventDefault()
-        if (passwordref.current.value !== cpasswordref.current.value) {
-            throw Error('Your confirmpassword not match with current password')
+        try {
+            e.preventDefault()
+            setloading(true)
+            if (passwordref.current.value !== cpasswordref.current.value) {
+                applyToast('Failed', 'password not match', 'error')
+                setloading(false)
+                return
+            }
+            const user = await signup(emailref.current.value, passwordref.current.value)
+            setloading(false)
+            console.log(user)
+        } catch (error) {
+            console.log(error.message)
         }
-        const user = await signup(emailref.current.value, passwordref.current.value)
-        console.log(user)
     }
     useEffect(() => {
         const unsuscribe = OnAuthStateChange(auth, (user) => {
-            setcurrentUser(user)
+            if (user) {
+                setcurrentUser(user)
+                console.log(user)
+            }
+            else {
+                setcurrentUser('')
+                console.log('User Logout')
+            }
         })
-        return () => {
-            unsuscribe()
-        }
+
+        return unsuscribe()
+
         // eslint-disable-next-line
     }, [])
 
@@ -44,7 +60,7 @@ const SignUp = ({ children }) => {
                             <Input type='password' id='cpassword' borderColor={'gray.400'} minLength={5} name='cpassword' ref={cpasswordref} bgColor={'white'} />
                         </Box>
                         <Box textAlign={'center'} m={8}>
-                            <Button type='submit' colorScheme='green'>SignUp</Button>
+                            <Button type='submit' colorScheme='green' isLoading={loading}>SignUp</Button>
                         </Box>
                     </FormControl>
                 </form>
