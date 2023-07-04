@@ -55,7 +55,7 @@ const Dashboard = ({ children }) => {
                         </CardBody>
 
                         <CardFooter>
-                            <Button variant='solid' colorScheme='green'>
+                            <Button variant='solid' colorScheme='green' onClick={() => { navigate('/updateprofile') }}>
                                 Update Profile
                             </Button>
                         </CardFooter>

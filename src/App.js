@@ -3,6 +3,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Resetpassword from './components/Resetpassword'
+import UpdateProfile from "./components/UpdateProfile";
 function App() {
 
   return (
@@ -42,7 +43,13 @@ function App() {
             <br />
           </Resetpassword>
         } />
-
+        <Route path="/updateprofile" element={
+          <UpdateProfile>
+            <br />
+            <br />
+            <br />
+          </UpdateProfile>
+        } />
       </Routes>
     </BrowserRouter>
   );

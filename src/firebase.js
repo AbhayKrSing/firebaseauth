@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, updateEmail, updatePassword } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import 'firebase/auth';
@@ -22,4 +22,6 @@ export const OnAuthStateChange = onAuthStateChanged
 export const SignInWithEmailAndPassword = signInWithEmailAndPassword;
 export const SignOut = signOut;
 export const SendPasswordResetEmail = sendPasswordResetEmail;
+export const UpdateEmail = updateEmail;
+export const UpdatePassword = updatePassword;
 export default app

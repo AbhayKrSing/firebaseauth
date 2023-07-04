@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useContext, createContext } from 'react'
-import { auth, createAUser, OnAuthStateChange, SignInWithEmailAndPassword, SignOut, SendPasswordResetEmail } from '../firebase'
+import { auth, createAUser, OnAuthStateChange, SignInWithEmailAndPassword, SignOut, SendPasswordResetEmail, UpdateEmail, UpdatePassword } from '../firebase'
 import { useToast } from '@chakra-ui/react'
 const authContext = createContext()
 export const AuthContext = ({ children }) => {
@@ -27,6 +27,12 @@ export const AuthContext = ({ children }) => {
     const resetpassword = (email) => {
         return SendPasswordResetEmail(auth, email)
     }
+    const UpdateAnEmail = (newEmail) => {
+        return UpdateEmail(currentUser, newEmail)
+    }
+    const UpdateAnPassword = (newpassword) => {
+        return UpdatePassword(currentUser, newpassword)
+    }
     const value = {
         currentUser,
         signup,
@@ -36,7 +42,9 @@ export const AuthContext = ({ children }) => {
         applyToast,
         login,
         signout,
-        resetpassword
+        resetpassword,
+        UpdateAnEmail,
+        UpdateAnPassword
     }
     return (
         <div>
