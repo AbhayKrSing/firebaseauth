@@ -19,7 +19,7 @@ const SignUp = ({ children }) => {
                 setloading(false)
                 return
             }
-            await signup(emailref.current.value, passwordref.current.value)
+            await signup(emailref.current.value, passwordref.current.value)  //It return created user object
             setloading(false)
         } catch (error) {
             console.log(error.message)

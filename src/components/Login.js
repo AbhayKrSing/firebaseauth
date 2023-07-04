@@ -14,7 +14,7 @@ const Login = ({ children }) => {
         try {
             e.preventDefault()
             setloading(true)
-            await login(emailref.current.value, passwordref.current.value)
+            await login(emailref.current.value, passwordref.current.value)  //It return login user object
             setloading(false)
         } catch (error) {
             console.log(error.message)

@@ -12,7 +12,7 @@ const Login = ({ children }) => {
         try {
             e.preventDefault()
             setloading(true)
-            await resetpassword(emailref.current.value)      //use temporary email to be able to do a further action.
+            await resetpassword(emailref.current.value)      //use temporary email to be able to do a further action.It return nothing.
             setloading(false)
             applyToast('Open your email for further instruction', '', 'success', 9000)
         } catch (error) {
