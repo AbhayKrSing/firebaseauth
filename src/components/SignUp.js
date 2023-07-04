@@ -66,7 +66,7 @@ const SignUp = ({ children }) => {
                     </FormControl>
                 </form>
             </Container>
-            <Box textAlign={'center'}>Already have a account ?? <Link style={{ color: 'red' }} to={'/login'}>Sign in</Link></Box>
+            <Box textAlign={'center'}>Already have a account ?? <Link style={{ color: 'red', textDecoration: 'underline' }} to={'/login'}>Sign in</Link></Box>
         </>
     )
 }

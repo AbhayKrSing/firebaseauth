@@ -56,7 +56,7 @@ const Login = ({ children }) => {
                     </FormControl>
                 </form>
             </Container>
-            <Box textAlign={'center'}>Create an account ?? <Link style={{ color: 'red' }} to={'/signup'}>Sign up</Link></Box>
+            <Box textAlign={'center'}>Create an account ?? <Link style={{ color: 'red', textDecoration: 'underline' }} to={'/signup'}>Sign up</Link></Box>
         </>
     )
 }
