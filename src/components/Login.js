@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FormControl, FormLabel, Input, Container, Heading, Box, Button } from '@chakra-ui/react'
 import { UseAuthContextAPI } from '../Context/AuthContext'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
 
 const Login = ({ children }) => {
-    const { login, OnAuthStateChange, auth, setcurrentUser } = UseAuthContextAPI()
+    const navigate = useNavigate()
+    const { login, OnAuthStateChange, auth, setcurrentUser, applyToast } = UseAuthContextAPI()
     const [loading, setloading] = useState(false)
     const emailref = useRef()
     const passwordref = useRef()
@@ -12,11 +14,12 @@ const Login = ({ children }) => {
         try {
             e.preventDefault()
             setloading(true)
-            const user = await login(emailref.current.value, passwordref.current.value)
+            await login(emailref.current.value, passwordref.current.value)
             setloading(false)
-            console.log(user)
         } catch (error) {
             console.log(error.message)
+            setloading(false)
+            applyToast('Unable to Login', error.message, 'error', 2000)
         }
     }
     useEffect(() => {
@@ -24,15 +27,16 @@ const Login = ({ children }) => {
             if (user) {
                 setcurrentUser(user)
                 console.log(user)
+                navigate('/')
             }
             else {
-                setcurrentUser('')
+                setcurrentUser(null)
                 console.log('User Logout')
             }
         })
-
-        return unsuscribe()
-
+        return () => {
+            unsuscribe()
+        }
         // eslint-disable-next-line
     }, [])
 

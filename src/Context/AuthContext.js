@@ -1,25 +1,28 @@
 import React, { useState } from 'react'
 import { useContext, createContext } from 'react'
-import { auth, createAUser, OnAuthStateChange, SignInWithEmailAndPassword } from '../firebase'
+import { auth, createAUser, OnAuthStateChange, SignInWithEmailAndPassword, SignOut } from '../firebase'
 import { useToast } from '@chakra-ui/react'
 const authContext = createContext()
 export const AuthContext = ({ children }) => {
     const toast = useToast()
-    function applyToast(message = 'Account created.', description = "We've created your account for you.", status) {
+    function applyToast(message = 'Account created.', description = "We've created your account for you.", status, duration = 1000) {
         toast({
             title: message,
             description: description,
             status: status,
-            duration: 1000,
+            duration: duration,
             isClosable: true,
         })
     }
     const [currentUser, setcurrentUser] = useState('')
-    const signup = (email, password) => {
+    const signup = (email, password) => {  //signup
         return createAUser(auth, email, password)  //this return promise
     }
-    const login = (email, password) => {
+    const login = (email, password) => {   //login
         return SignInWithEmailAndPassword(auth, email, password)
+    }
+    const signout = () => {
+        return SignOut(auth)
     }
     const value = {
         currentUser,
@@ -28,7 +31,8 @@ export const AuthContext = ({ children }) => {
         OnAuthStateChange,
         auth,
         applyToast,
-        login
+        login,
+        signout
     }
     return (
         <div>
