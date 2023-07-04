@@ -59,6 +59,9 @@ const Login = ({ children }) => {
                         </Box>
                     </FormControl>
                 </form>
+                <Box textAlign={'right'} color={'red'} textDecoration={'underline'}>
+                    <Link to={'/forgetpassword'} >forgetpassword</Link>
+                </Box>
             </Container>
             <Box textAlign={'center'}>Create an account ?? <Link style={{ color: 'red', textDecoration: 'underline' }} to={'/signup'}>Sign up</Link></Box>
         </>
